@@ -33,7 +33,7 @@ export class UsersController {
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  async removeLogical (@Param('id') id: string) {
+    return await this.usersService.remove(id);
   }
 }

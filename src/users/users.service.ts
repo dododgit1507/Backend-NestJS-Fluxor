@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -11,16 +15,17 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) { }
+  ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-
     const { password, ...userData } = createUserDto;
 
     const saltRounds = 10;
     const hashPassword = await bcrypt.hash(password, saltRounds);
 
-    const userExists = await this.usersRepository.findOne({ where: { email: createUserDto.email } });
+    const userExists = await this.usersRepository.findOne({
+      where: { email: createUserDto.email },
+    });
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
@@ -40,7 +45,10 @@ export class UsersService {
     return await this.usersRepository.findOne({ where: { id_user: id } });
   }
 
-  async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
+  async validatePassword(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
     return await bcrypt.compare(plainPassword, hashedPassword);
   }
 
@@ -64,6 +72,11 @@ export class UsersService {
 
   async remove(id: string): Promise<User> {
     const user = await this.findOne(id);
-    return await this.usersRepository.remove(user);
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    user.isActive = false; // Set isActive to false for logical deletion
+    await this.usersRepository.save(user);
+    return await this.usersRepository.save(user);
   }
 }
