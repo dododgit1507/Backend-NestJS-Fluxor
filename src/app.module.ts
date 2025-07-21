@@ -5,6 +5,10 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { SesionIniciadaModule } from './sesion_iniciada/sesion_iniciada.module';
+import { SesionLimiteModule } from './sesion_limite/sesion_limite.module';
+import { AsignacionFlujoModule } from './asignacion_flujo/asignacion_flujo.module';
+import { FlujoModule } from './flujo/flujo.module';
 
 @Module({
   imports: [
@@ -21,6 +25,10 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    SesionIniciadaModule,
+    SesionLimiteModule,
+    AsignacionFlujoModule,
+    FlujoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

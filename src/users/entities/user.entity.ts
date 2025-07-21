@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { SesionIniciada } from "../../sesion_iniciada/entities/sesion_iniciada.entity";
+import { SesionLimite } from "../../sesion_limite/entities/sesion_limite.entity";
+import { AsignacionFlujo } from "../../asignacion_flujo/entities/asignacion_flujo.entity";
 
 @Entity()
 export class User {
@@ -21,11 +24,20 @@ export class User {
     phone: string;
 
     @Column({ default: true })
-    isActive: boolean; 
+    isActive: boolean;
 
     @CreateDateColumn()
     createdAt: Date;
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @OneToMany(() => SesionIniciada, (sesionIniciada) => sesionIniciada.user)
+    sesionesIniciadas: SesionIniciada[];
+
+    @OneToMany(() => SesionLimite, (sesionLimite) => sesionLimite.user)
+    sesionesLimites: SesionLimite[];
+
+    @OneToMany(() => AsignacionFlujo, (asignacionFlujo) => asignacionFlujo.user)
+    asignacionFlujos: AsignacionFlujo[];
 }
