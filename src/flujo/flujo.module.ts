@@ -5,9 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Flujo } from './entities/flujo.entity';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Flujo])],
   controllers: [FlujoController],
   providers: [FlujoService],
-  imports: [TypeOrmModule.forFeature([Flujo])],
   exports: [FlujoService]
 })
 export class FlujoModule { }

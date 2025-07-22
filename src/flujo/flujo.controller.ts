@@ -19,16 +19,16 @@ export class FlujoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.flujoService.findOne(+id);
+    return this.flujoService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFlujoDto: UpdateFlujoDto) {
-    return this.flujoService.update(+id, updateFlujoDto);
+    return this.flujoService.update(id, updateFlujoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.flujoService.remove(+id);
+    return this.flujoService.remove(id);
   }
 }

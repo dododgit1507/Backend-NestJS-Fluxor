@@ -5,7 +5,7 @@ import { UpdateAsignacionFlujoDto } from './dto/update-asignacion_flujo.dto';
 
 @Controller('asignacion-flujo')
 export class AsignacionFlujoController {
-  constructor(private readonly asignacionFlujoService: AsignacionFlujoService) {}
+  constructor(private readonly asignacionFlujoService: AsignacionFlujoService) { }
 
   @Post()
   create(@Body() createAsignacionFlujoDto: CreateAsignacionFlujoDto) {
@@ -19,16 +19,16 @@ export class AsignacionFlujoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.asignacionFlujoService.findOne(+id);
+    return this.asignacionFlujoService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAsignacionFlujoDto: UpdateAsignacionFlujoDto) {
-    return this.asignacionFlujoService.update(+id, updateAsignacionFlujoDto);
+    return this.asignacionFlujoService.update(id, updateAsignacionFlujoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.asignacionFlujoService.remove(+id);
+    return this.asignacionFlujoService.remove(id);
   }
 }
