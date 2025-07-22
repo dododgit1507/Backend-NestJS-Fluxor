@@ -27,6 +27,11 @@ export class AsignacionFlujoController {
     return this.asignacionFlujoService.update(id, updateAsignacionFlujoDto);
   }
 
+  @Get('user/:userId')
+  findByUserId(@Param('userId') userId: string) {
+    return this.asignacionFlujoService.findByUserId(userId);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.asignacionFlujoService.remove(id);

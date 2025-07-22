@@ -11,7 +11,7 @@ export class AsignacionFlujoService {
   constructor(
     @InjectRepository(AsignacionFlujo)
     private asignacionFlujoRepository: Repository<AsignacionFlujo>
-  ) {}
+  ) { }
 
   async create(createAsignacionFlujoDto: CreateAsignacionFlujoDto): Promise<AsignacionFlujo> {
     return this.asignacionFlujoRepository.save(createAsignacionFlujoDto);
@@ -39,5 +39,12 @@ export class AsignacionFlujoService {
     const asignacionFlujo = await this.findOne(id);
     await this.asignacionFlujoRepository.delete(id);
     return asignacionFlujo;
+  }
+
+  async findByUserId(userId: string): Promise<AsignacionFlujo[]> {
+    return this.asignacionFlujoRepository.find({
+      where: { id_user: userId },
+      relations: ['user', 'flujo'] // Incluir las relaciones para obtener más información
+    });
   }
 }
